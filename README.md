@@ -2,6 +2,12 @@
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 15.1.5.
 
+## Clone app
+### git clone https://github.com/AbdelrhmanAh7/STC.git
+### redirect to app direction 
+### run npm i
+### run ng server -o
+
 ## User name
 ### Login
 User name : user , password : user ( can access categories only and get categories retlated to this product )
