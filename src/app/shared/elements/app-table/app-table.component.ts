@@ -5,13 +5,15 @@ import { Component, ContentChild, Input, TemplateRef } from '@angular/core';
   templateUrl: './app-table.component.html',
 })
 export class AppTableComponent {
-  @ContentChild('listItem') public readonly listItem: TemplateRef<unknown> | any;
+  @ContentChild('listItem') public readonly listItem:
+    | TemplateRef<unknown>
+    | any;
 
   @ContentChild('noData') public readonly noData:
     | TemplateRef<unknown>
     | undefined;
 
-  @Input() public readonly items: any[] = [];
+  @Input() public items: any = [];
 
   @Input() public selectedItem: any;
 
@@ -24,4 +26,5 @@ export class AppTableComponent {
   @Input() public tableClass = 'bg-light shadow-sm';
 
   @Input() public headerStyle: string | undefined;
+  pageNumber: number = 0;
 }

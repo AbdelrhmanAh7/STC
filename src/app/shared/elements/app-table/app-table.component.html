@@ -9,7 +9,13 @@
 
   <ng-container *ngIf="loaded; else loader">
     <ng-container *ngIf="items?.length; else noData || defaultNoData">
-      <ng-container *ngFor="let item of items; let i = index">
+      <div
+        *ngFor="
+          let item of items
+            | paginate : { itemsPerPage: 2, currentPage: pageNumber };
+          let i = index
+        "
+      >
         <ng-container
           *ngTemplateOutlet="
             listItem;
@@ -20,7 +26,12 @@
             }
           "
         ></ng-container>
-      </ng-container>
+      </div>
+      <div class="d-flex justify-content-center my-4">
+        <pagination-controls
+          (pageChange)="pageNumber = $event"
+        ></pagination-controls>
+      </div>
     </ng-container>
   </ng-container>
 </div>
@@ -34,7 +45,9 @@
 </ng-template>
 
 <ng-template #defaultNoData>
-  <div class="h-100 w-100 d-flex flex-column justify-content-center align-items-center p-5">
+  <div
+    class="h-100 w-100 d-flex flex-column justify-content-center align-items-center p-5"
+  >
     <h3>{{ "noData" | translate }}</h3>
   </div>
 </ng-template>

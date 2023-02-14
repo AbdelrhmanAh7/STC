@@ -1,8 +1,8 @@
-import { Component, Input } from "@angular/core";
-import { AttachmentPlaceHolders } from "../../enum/attachment-placeHolders";
+import { Component, Input } from '@angular/core';
+import { AttachmentPlaceHolders } from '../../enums/attachment-placeHolders';
 
 @Component({
-  selector: "app-img[url]",
+  selector: 'app-img[url]',
   template: `
     <div
       class="overflow-hidden"
@@ -18,7 +18,9 @@ import { AttachmentPlaceHolders } from "../../enum/attachment-placeHolders";
           *ngIf="lazyLoad; else noLazyLoading"
           [lazyLoad]="url"
           [defaultImage]="placeHolders.loading"
-          [errorImage]="isAvatar ? placeHolders.profile : placeHolders.talabeyahImage"
+          [errorImage]="
+            isAvatar ? placeHolders.profile : placeHolders.talabeyahImage
+          "
           [class]="defaultClass"
           [style]="defaultStyle"
           [ngClass]="imgClass"
@@ -34,7 +36,9 @@ import { AttachmentPlaceHolders } from "../../enum/attachment-placeHolders";
         [style]="defaultStyle"
         [ngClass]="imgClass"
         [class.rounded-circle]="isRounded"
-        (error)="url = isAvatar ? placeHolders.profile : placeHolders.talabeyahImage"
+        (error)="
+          url = isAvatar ? placeHolders.profile : placeHolders.talabeyahImage
+        "
       />
     </ng-template>
     <ng-template #empty>
@@ -43,25 +47,27 @@ import { AttachmentPlaceHolders } from "../../enum/attachment-placeHolders";
         [class]="defaultClass"
         [style]="defaultStyle"
         [class.rounded-circle]="isRounded"
-        [lazyLoad]="isAvatar ? placeHolders.profile : placeHolders.talabeyahImage"
+        [lazyLoad]="
+          isAvatar ? placeHolders.profile : placeHolders.talabeyahImage
+        "
     /></ng-template>
   `,
 })
 export class AppImageComponent {
-  @Input() public url: string;
-  @Input() public placeHolder: AttachmentPlaceHolders;
-  @Input() public width: string;
-  @Input() public minWidth: string;
-  @Input() public height: string;
-  @Input() public minHeight: string;
-  @Input() public borderRadius: string;
-  @Input() public imgClass: string;
-  @Input() public wrapperClass: string;
+  @Input() public url: string | null = null;
+  @Input() public placeHolder: AttachmentPlaceHolders | null = null;
+  @Input() public width: string | null = null;
+  @Input() public minWidth: string | null = null;
+  @Input() public height: string | null = null;
+  @Input() public minHeight: string | null = null;
+  @Input() public borderRadius: string | null = null;
+  @Input() public imgClass: string | null = null;
+  @Input() public wrapperClass: string | null = null;
   @Input() public isAvatar = false;
   @Input() public isRounded = false;
   @Input() public lazyLoad = true;
 
-  public defaultClass = "w-100 h-100";
+  public defaultClass = 'w-100 h-100';
 
   public defaultStyle = `position: relative;
   background-size: cover;

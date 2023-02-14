@@ -4,6 +4,7 @@ import { AuthenticationService } from '../../../../core/service/authentication.s
 import { filter, finalize, take, tap } from 'rxjs';
 import { Router } from '@angular/router';
 import { ButtonTypes } from 'src/app/shared/utlis/button-properties';
+import { PermissionsManagerService } from '../../../../core/helpers/permissions-manager.service';
 
 @Component({
   selector: 'app-login',
@@ -12,9 +13,10 @@ import { ButtonTypes } from 'src/app/shared/utlis/button-properties';
 })
 export class LoginComponent {
   constructor(
-    private _fb: FormBuilder,
-    private _auth: AuthenticationService,
-    private readonly _router: Router
+    private readonly _fb: FormBuilder,
+    private readonly _auth: AuthenticationService,
+    private readonly _router: Router,
+    private permissionsManager: PermissionsManagerService
   ) {}
   public loginProcess: boolean = false;
   public readonly ButtonTypes = ButtonTypes;
@@ -31,11 +33,17 @@ export class LoginComponent {
     this._auth
       .login(this.loginForm.value)
       .pipe(
-        filter((response) => response.ok),
+        filter(
+          (response) =>
+            response?.status === 200 && response?.statusText === 'OK'
+        ),
         take(1),
         finalize(() => (this.loginProcess = false)),
-        tap(async () => {
-          await this._router.navigateByUrl(``);
+        tap(async (response) => {
+          localStorage.setItem('currentUser', JSON.stringify(response?.body));
+          if (response.body)
+            this.permissionsManager.setPermissions([response.body.permissions]);
+          await this._router.navigateByUrl(`./`);
         })
       )
       .subscribe();

@@ -1,1 +1,159 @@
-<p>create-product works!</p>
+<div class="row">
+  <div class="col-12">
+    <div class="card">
+      <div class="card-body">
+        <form [formGroup]="productForm" (ngSubmit)="submit()">
+          <div class="row">
+            <div class="col-sm-6">
+              <div class="mb-3">
+                <label for="profileImageFileInput" class="form-label">{{
+                  "image" | translate
+                }}</label>
+                <input
+                  class="form-control"
+                  type="file"
+                  accept="image/*"
+                  [ngClass]="{ 'is-invalid': productForm.get('img')?.errors }"
+                  id="profileImageFileInput"
+                  placeholder="{{ 'chooseFile' | translate }}"
+                />
+                <div
+                  *ngIf="productForm.get('img')?.errors"
+                  class="invalid-feedback"
+                >
+                  <span *ngIf="productForm.get('img')?.hasError('required')">{{
+                    "imgIsRequired" | translate
+                  }}</span>
+                </div>
+              </div>
+              <div class="mb-3">
+                <label for="title">{{ "title" | translate }}</label>
+                <input
+                  id="title"
+                  name="title"
+                  type="text"
+                  class="form-control"
+                  formControlName="title"
+                  [ngClass]="{
+                    'is-invalid':
+                      productForm.get('title')?.touched &&
+                      productForm.get('title')?.errors
+                  }"
+                />
+                <div
+                  *ngIf="
+                    productForm.get('title')?.touched &&
+                    productForm.get('title')?.errors
+                  "
+                  class="invalid-feedback"
+                >
+                  <span
+                    *ngIf="productForm.get('title')?.hasError('required')"
+                    >{{ "titleIsRequired" | translate }}</span
+                  >
+                </div>
+              </div>
+              <div class="mb-3">
+                <label for="description">{{ "description" | translate }}</label>
+                <input
+                  id="description"
+                  name="description"
+                  type="text"
+                  class="form-control"
+                  formControlName="description"
+                  [ngClass]="{
+                    'is-invalid':
+                      productForm.get('description')?.touched &&
+                      productForm.get('description')?.errors
+                  }"
+                />
+                <div
+                  *ngIf="
+                    productForm.get('description')?.touched &&
+                    productForm.get('description')?.errors
+                  "
+                  class="invalid-feedback"
+                >
+                  <span
+                    *ngIf="productForm.get('description')?.hasError('required')"
+                    >{{ "descriptionIsRequired" | translate }}</span
+                  >
+                </div>
+              </div>
+              <div class="mb-3">
+                <label for="price">{{ "price" | translate }}</label>
+                <input
+                  id="price"
+                  name="price"
+                  type="text"
+                  class="form-control"
+                  formControlName="price"
+                  [ngClass]="{
+                    'is-invalid':
+                      productForm.get('price')?.touched &&
+                      productForm.get('price')?.errors
+                  }"
+                />
+                <div
+                  *ngIf="
+                    productForm.get('price')?.touched &&
+                    productForm.get('price')?.errors
+                  "
+                  class="invalid-feedback"
+                >
+                  <span
+                    *ngIf="productForm.get('price')?.hasError('required')"
+                    >{{ "priceIsRequired" | translate }}</span
+                  >
+                </div>
+              </div>
+              <div class="mb-3">
+                <label class="control-label">{{
+                  "category" | translate
+                }}</label>
+                <ng-select
+                  dropdownPosition="top"
+                  [items]="categoriesList$ | async"
+                  formControlName="category"
+                  bindLabel="name"
+                  bindValue="name"
+                  [ngClass]="{
+                    'is-invalid':
+                      productForm.get('category')?.touched &&
+                      productForm.get('category')?.errors
+                  }"
+                >
+                </ng-select>
+                <div
+                  *ngIf="
+                    productForm.get('category')?.touched &&
+                    productForm.get('category')?.errors
+                  "
+                  class="invalid-feedback"
+                >
+                  <span
+                    *ngIf="productForm?.get('category')?.hasError('required')"
+                    >{{ "categoryIsRequired" | translate }}
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="d-flex flex-wrap gap-2 mt-2">
+            <button type="submit" class="btn btn-primary mx-3">
+              {{ "create" | translate }}
+            </button>
+            <button
+              type="button"
+              [routerLink]="['/products/list']"
+              routerLinkActive="router-link-active"
+              class="btn btn-secondary"
+            >
+              {{ "cancel" | translate }}
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

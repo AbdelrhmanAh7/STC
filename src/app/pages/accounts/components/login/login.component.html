@@ -3,12 +3,11 @@
     <div class="row justify-content-center">
       <div class="col-md-8 col-lg-6 col-xl-5">
         <div class="card overflow-hidden mat-elevation-z1">
-          <div class="bg-soft bg-primary">
+          <div class="bg-soft bg-white">
             <div class="row">
-              <div class="col-7">
-                <div class="text-primary p-4">
-                  <h5 class="text-primary">Welcome Back !</h5>
-                  <p>Sign in to continue to ECOMMERCE SITE.</p>
+              <div class="col-12 text-center">
+                <div class="text-dark p-4">
+                  <h5 class="text-dark">{{ "welcomeBack" | translate }}</h5>
                 </div>
               </div>
             </div>
@@ -45,11 +44,8 @@
                   >
                     <span
                       *ngIf="loginForm.get('userName')?.hasError('required')"
-                      >{{ "phoneNumberIsRequired" | translate }}</span
-                    ><br />
-                    <span *ngIf="loginForm.get('userName')?.errors">{{
-                      "invalidUserName" | translate
-                    }}</span>
+                      >{{ "UserNamesRequired" | translate }}</span
+                    >
                   </div>
                 </div>
 
@@ -91,6 +87,7 @@
                     class="w-100"
                     inputClass="w-100"
                     [matType]="ButtonTypes.flat"
+                    type="submit"
                     color="primary"
                     text="Login"
                   ></app-button>

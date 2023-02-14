@@ -9,6 +9,7 @@ import { filter, ReplaySubject, skip, takeUntil, tap } from 'rxjs';
 @Component({
   selector: 'app-root',
   template: `
+    <app-header></app-header>
     <ng-progress #progressBar></ng-progress>
     <router-outlet></router-outlet>
   `,

@@ -1,1 +1,147 @@
-<p>products-list works!</p>
+<div class="row">
+  <div class="col-12">
+    <div class="card">
+      <div class="card-body px-0">
+        <div class="row">
+          <div class="col-md-6"></div>
+          <div class="col-md-6">
+            <div class="d-flex justify-content-end p-5">
+              <app-button
+                [defaultColor]="true"
+                [routerLink]="['/products/create']"
+                toolTip="create"
+                icon="add"
+                [matType]="ButtonTypes.flat"
+                text="create"
+              ></app-button>
+            </div>
+          </div>
+        </div>
+        <app-table
+          [loaded]="!!(productsList$ | async)"
+          [items]="productsList$ | async"
+        >
+          <div
+            header
+            class="row row d-flex flex-row justify-content-between align-items-center text-gray m-0"
+            style="min-height: 40px"
+          >
+            <label class="col-2 text-center m-0 p-0 fs-6">{{
+              "image" | translate
+            }}</label>
+
+            <label class="col-1 text-center m-0 p-0 fs-6">{{
+              "title" | translate
+            }}</label>
+
+            <label class="col-1 text-center m-0 p-0 fs-6">{{
+              "price" | translate
+            }}</label>
+
+            <label class="col-1 text-center m-0 p-0 fs-6">{{
+              "category" | translate
+            }}</label>
+
+            <label class="col-1 text-center m-0 p-0 fs-6">{{
+              "rate" | translate
+            }}</label>
+
+            <label class="col-1 text-center m-0 p-0 fs-6">{{
+              "count" | translate
+            }}</label>
+
+            <label class="col-2 text-center m-0 p-0 fs-6">{{
+              "actions" | translate
+            }}</label>
+          </div>
+
+          <ng-template #listItem let-item="item">
+            <extendable-area containerStyle="border-bottom: 4px solid #fff">
+              <div
+                table-header
+                class="table-header row w-100 h-100 d-flex flex-row justify-content-between align-items-center py-2 m-0 bg-light border-bottom-1"
+                role="button"
+              >
+                <label
+                  class="col-2 d-flex justify-content-center align-items-center m-0 p-0 fs-6"
+                >
+                  <app-img
+                    [url]="item?.image"
+                    [isRounded]="false"
+                    width="90px"
+                    height="90px"
+                  ></app-img>
+                </label>
+
+                <label class="col-1 text-center m-0 p-0 fs-6">{{
+                  item?.title
+                }}</label>
+
+                <label class="col-1 text-center m-0 p-0 fs-6">{{
+                  item?.price
+                }}</label>
+
+                <label class="col-1 text-center m-0 p-0 fs-5">{{
+                  item?.category
+                }}</label>
+
+                <label class="col-1 text-center m-0 p-0 fs-5">{{
+                  item?.rating?.rate
+                }}</label>
+
+                <label class="col-1 text-center m-0 p-0 fs-5">{{
+                  item?.rating?.count
+                }}</label>
+
+                <div
+                  class="col-2 d-flex justify-content-center align-items-center gap-1"
+                  (click)="$event.preventDefault()"
+                >
+                  <app-button
+                    [defaultColor]="true"
+                    class="mx-2"
+                    toolTip="update"
+                    icon="edit"
+                    [matType]="ButtonTypes.miniFap"
+                    (clicked)="goToUpdateBrand(item?.id)"
+                  ></app-button>
+                  <app-button
+                    color="warn"
+                    toolTip="delete"
+                    icon="delete"
+                    [matType]="ButtonTypes.miniFap"
+                    (clicked)="deleteProduct(item?.id)"
+                  ></app-button>
+                </div>
+              </div>
+              <div extendable-area-body style="background-color: #fff">
+                <table class="table table-bordered">
+                  <tbody>
+                    <tr>
+                      <td colspan="2">
+                        <label class="fw-bold"
+                          >{{ "description" | translate }}
+                        </label>
+                      </td>
+                      <td colspan="2">
+                        <span>{{ item?.description }} </span>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </extendable-area>
+          </ng-template>
+
+          <ng-template #noData>
+            <div
+              class="h-100 w-100 d-flex flex-column justify-content-center align-items-center p-5"
+            >
+              <h3>{{ "noData" | translate }}</h3>
+            </div>
+          </ng-template>
+        </app-table>
+      </div>
+    </div>
+  </div>
+</div>

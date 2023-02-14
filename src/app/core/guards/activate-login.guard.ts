@@ -31,7 +31,9 @@ export class ActivateLoginGuard implements CanActivate {
       !!this._authenticationService.currentUserValue;
 
     if (!isAuthenticated) return true;
-
-    return from(this._router.navigateByUrl('/login')).pipe(map(() => false));
+    else {
+      this._router.navigateByUrl(`/login`);
+      return false;
+    }
   }
 }

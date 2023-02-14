@@ -1,3 +1,22 @@
 {
-  "Home": "اهلا"
+  "Login": "تسجيل الدخول",
+  "userName": "اسم المستخدم",
+  "UserNamesRequired": " مطلوب اسم المستخدم",
+  "passwordIsRequired": "مطلوب كلمة المرور",
+  "password": "كلمة المرور",
+  "welcomeBack": "مرحبا !",
+  "title": "العنوان",
+  "description": "التفصيل",
+  "price": "ألسعر",
+  "image": "الصوره",
+  "category": "التصنيف",
+  "products": "المنتجات",
+  "update": "تحديث",
+  "create": "انشاء",
+  "cancel": "الغاء",
+  "Update Product": "تعديل المنتج",
+  "rate": "تقيم",
+  "actions": "إجراءات",
+  "count": "عدد",
+  "language": "اللغات"
 }

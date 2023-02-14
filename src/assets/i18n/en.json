@@ -1,3 +1,8 @@
 {
-  "Home" : "asd"
+  "Login": "Login",
+  "userName": "User name",
+  "UserNamesRequired": "User names required",
+  "passwordIsRequired": "Password is required",
+  "password": "Password",
+  "welcomeBack": "Welcome Back !"
 }

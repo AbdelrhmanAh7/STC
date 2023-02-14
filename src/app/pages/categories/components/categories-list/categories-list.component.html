@@ -1,1 +1,60 @@
-<p>categories-list works!</p>
+<div class="row">
+  <div class="col-12">
+    <div class="card">
+      <div class="card-body px-5">
+        <app-table
+          [loaded]="!!(categoriesList$ | async)"
+          [items]="categoriesList$ | async"
+        >
+          <div
+            header
+            class="row row d-flex flex-row justify-content-between align-items-center text-gray m-0"
+            style="min-height: 40px"
+          >
+            <label class="col-1 text-center m-0 p-0 fs-6">{{
+              "name" | translate
+            }}</label>
+
+            <label class="col-2 text-center m-0 p-0 fs-6">{{
+              "actions" | translate
+            }}</label>
+          </div>
+
+          <ng-template #listItem let-item="item">
+            <extendable-area containerStyle="border-bottom: 4px solid #fff">
+              <div
+                table-header
+                class="table-header row w-100 h-100 d-flex flex-row justify-content-between align-items-center py-2 m-0 bg-light border-bottom-1"
+                role="button"
+              >
+                <label class="col-1 text-center m-0 p-0 fs-6">{{ item }}</label>
+
+                <div
+                  class="col-2 d-flex justify-content-center align-items-center gap-1"
+                  (click)="$event.preventDefault()"
+                >
+                  <app-button
+                    [defaultColor]="true"
+                    class="mx-2"
+                    toolTip="details"
+                    icon="airplay"
+                    [matType]="ButtonTypes.miniFap"
+                    (clicked)="categoryProducts()"
+                  ></app-button>
+                </div>
+              </div>
+            </extendable-area>
+          </ng-template>
+
+          <ng-template #noData>
+            <div
+              class="h-100 w-100 d-flex flex-column justify-content-center align-items-center p-5"
+            >
+              <h3>{{ "noData" | translate }}</h3>
+            </div>
+          </ng-template>
+        </app-table>
+      </div>
+    </div>
+  </div>
+</div>
