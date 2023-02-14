@@ -1,18 +1,31 @@
-import { Injectable } from '@angular/core';
+import { Injectable, InjectionToken, Inject } from '@angular/core';
 import {
-  HttpRequest,
+  HttpInterceptor,
   HttpHandler,
-  HttpEvent,
-  HttpInterceptor
+  HttpRequest,
 } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { throwError, TimeoutError } from 'rxjs';
+import { timeout, catchError } from 'rxjs/operators';
+import { ToastrService } from 'ngx-toastr';
 
-@Injectable()
-export class TimeoutInterceptor implements HttpInterceptor {
+@Injectable({
+  providedIn: 'root',
+})
+export class RequestTimeoutHttpInterceptor implements HttpInterceptor {
+  constructor(private readonly _toaster: ToastrService) {}
 
-  constructor() {}
+  intercept(req: HttpRequest<any>, next: HttpHandler) {
+    const defaultTimeout: number = 120000;
+    const modified = req.clone({
+      setHeaders: { 'X-Request-Timeout': `${defaultTimeout}` },
+    });
 
-  intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
-    return next.handle(request);
+    return next.handle(modified).pipe(
+      timeout(defaultTimeout),
+      catchError((err) => {
+        if (err instanceof TimeoutError) this._toaster.error('Time Out');
+        return throwError(err);
+      })
+    );
   }
 }
