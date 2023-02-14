@@ -1,0 +1,61 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <p class="navbar-brand">STC</p>
+  <div [ngClass]="{ 'ml-auto': _language.lang === 'en' }" class="mr-auto">
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-toggle="collapse"
+      data-target="#navbarNavDropdown"
+      aria-controls="navbarNavDropdown"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+      <ul class="navbar-nav">
+        <li *ngxPermissionsOnly="['ADMIN']" class="nav-item">
+          <a
+            class="nav-link"
+            routerLink="/products"
+            [routerLinkActive]="'active'"
+            >{{ "products" | translate }}</a
+          >
+        </li>
+        <li *ngxPermissionsOnly="['USER']" class="nav-item">
+          <a
+            class="nav-link"
+            routerLink="/categories"
+            [routerLinkActive]="'active'"
+            >{{ "category" | translate }}</a
+          >
+        </li>
+        <li class="nav-item">
+          <a
+            class="nav-link"
+            routerLink="/account"
+            [routerLinkActive]="'active'"
+            (click)="logOut()"
+            >{{ "logout" | translate }}</a
+          >
+        </li>
+        <li class="nav-item dropdown">
+          <select
+            (change)="changeLang($event)"
+            class="dropdown-item notify-item"
+            [routerLink]="null"
+            data-toggle="dropdown"
+            aria-expanded="false"
+          >
+            <option [defaultSelected]="_language.lang === 'ar'" [value]="'ar'">
+              arabic
+            </option>
+            <option [defaultSelected]="_language.lang === 'en'" [value]="'en'">
+              english
+            </option>
+          </select>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
