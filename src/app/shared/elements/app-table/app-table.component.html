@@ -1,0 +1,40 @@
+<div class="w-100 max-w-100" style="overflow-x: scroll" [ngClass]="tableClass">
+  <div
+    class="table-header w-100"
+    style="min-width: 100em; background-color: #f0f0f0"
+    [style]="headerStyle"
+  >
+    <ng-content select="[header]"></ng-content>
+  </div>
+
+  <ng-container *ngIf="loaded; else loader">
+    <ng-container *ngIf="items?.length; else noData || defaultNoData">
+      <ng-container *ngFor="let item of items; let i = index">
+        <ng-container
+          *ngTemplateOutlet="
+            listItem;
+            context: {
+              item: item,
+              index: i,
+              isSelected: !!selectedItem && item[key] === selectedItem[key]
+            }
+          "
+        ></ng-container>
+      </ng-container>
+    </ng-container>
+  </ng-container>
+</div>
+
+<div class="w-100">
+  <ng-content select="[footer]"></ng-content>
+</div>
+
+<ng-template #loader>
+  <shimmer-loading [loadingsCount]="8"></shimmer-loading>
+</ng-template>
+
+<ng-template #defaultNoData>
+  <div class="h-100 w-100 d-flex flex-column justify-content-center align-items-center p-5">
+    <h3>{{ "noData" | translate }}</h3>
+  </div>
+</ng-template>
