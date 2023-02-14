@@ -8,6 +8,9 @@ import {
   GetCategoriesSuccess,
   GetCategory,
   GetCategoryFail,
+  GetCategoryProducts,
+  GetCategoryProductsFail,
+  GetCategoryProductsSuccess,
   GetCategorySuccess,
 } from './categories.actions';
 import { CategoriesService } from '../service/categories.service';
@@ -25,6 +28,19 @@ export class CategoryEffects {
             of(GetCategoriesSuccess({ categoryList: categoryList }))
           ),
           catchError(() => of(GetCategoriesFail()))
+        );
+      })
+    )
+  );
+  getCategoryProducts$ = createEffect(() =>
+    this.actions.pipe(
+      ofType(GetCategoryProducts),
+      switchMap((action) => {
+        return this._category.GetCategoryProducts(action.categoryName).pipe(
+          switchMap((products) =>
+            of(GetCategoryProductsSuccess({ products: products }))
+          ),
+          catchError(() => of(GetCategoryProductsFail()))
         );
       })
     )

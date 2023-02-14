@@ -144,6 +144,7 @@
               {{ "create" | translate }}
             </button>
             <button
+              *ngxPermissionsOnly="['ADMIN']"
               type="button"
               [routerLink]="['/products/list']"
               routerLinkActive="router-link-active"

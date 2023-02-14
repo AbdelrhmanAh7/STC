@@ -1,11 +1,16 @@
 import { createAction, props } from '@ngrx/store';
 import { IGetCategories } from '../interface/IGetCategories';
+import { IGetProductsList } from '../../products/interface/IGetProductsList';
 
 export enum categoryActionEnum {
   //* GET CATEGORY  ACTIONS ENUM */
   GET_CATEGORY = '[CATEGORY] GET CATEGORY',
   GET_CATEGORY_SUCCESS = '[CATEGORY] GET CATEGORY  SUCCESS',
   GET_CATEGORY_FAIL = '[CATEGORY] GET CATEGORY FAIL',
+  //* GET CATEGORY  ACTIONS ENUM */
+  GET_CATEGORY_PRODUCTS = '[CATEGORY] GET CATEGORY PRODUCTS',
+  GET_CATEGORY_PRODUCTS_SUCCESS = '[CATEGORY] GET CATEGORY PRODUCTS SUCCESS',
+  GET_CATEGORY_PRODUCTS_FAIL = '[CATEGORY] GET CATEGORY PRODUCTS FAIL',
   //* GET CATEGORIES  ACTIONS ENUM */
   GET_CATEGORIES = '[CATEGORY] GET CATEGORIES',
   GET_CATEGORIES_SUCCESS = '[CATEGORY] GET CATEGORIES  SUCCESS',
@@ -26,6 +31,18 @@ export const GetCategorySuccess = createAction(
 );
 export const GetCategoryFail = createAction(
   categoryActionEnum.GET_CATEGORY_FAIL
+);
+//* GET CATEGORY  ACTIONS ENUM */
+export const GetCategoryProducts = createAction(
+  categoryActionEnum.GET_CATEGORY_PRODUCTS,
+  props<{ categoryName: string }>()
+);
+export const GetCategoryProductsSuccess = createAction(
+  categoryActionEnum.GET_CATEGORY_PRODUCTS_SUCCESS,
+  props<{ products: IGetProductsList[] }>()
+);
+export const GetCategoryProductsFail = createAction(
+  categoryActionEnum.GET_CATEGORY_PRODUCTS_FAIL
 );
 //* GET CATEGORIES ACTIONS ENUM */
 export const GetCategories = createAction(categoryActionEnum.GET_CATEGORIES);

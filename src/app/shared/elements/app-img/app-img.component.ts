@@ -5,7 +5,7 @@ import { AttachmentPlaceHolders } from '../../enums/attachment-placeHolders';
   selector: 'app-img[url]',
   template: `
     <div
-      class="overflow-hidden"
+      class="overflow-hidden m-auto"
       [ngClass]="wrapperClass"
       [style.width]="width"
       [style.height]="height"

@@ -1,11 +1,21 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  OnDestroy,
+  OnInit,
+  TemplateRef,
+} from '@angular/core';
 import { Store } from '@ngrx/store';
 import { IAppState } from '../../../../app.state';
-import { filter, Observable, ReplaySubject, take, takeUntil } from 'rxjs';
-import { selectCategoriesList } from '../../store/categories.selector';
-import { map } from 'rxjs/operators';
+import { filter, Observable, ReplaySubject, takeUntil } from 'rxjs';
+import {
+  selectCategoriesList,
+  selectCategoryProductsList,
+} from '../../store/categories.selector';
 import { ButtonTypes } from 'src/app/shared/utlis/button-properties';
-import { GetCategories } from '../../store';
+import { GetCategories, GetCategoryProducts } from '../../store';
+import { IGetProductsList } from '../../../products/interface/IGetProductsList';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-categories-list',
@@ -13,7 +23,10 @@ import { GetCategories } from '../../store';
   styleUrls: ['./categories-list.component.scss'],
 })
 export class CategoriesListComponent implements OnInit, OnDestroy {
-  constructor(private readonly _store: Store<IAppState>) {}
+  constructor(
+    private readonly _store: Store<IAppState>,
+    public dialog: MatDialog
+  ) {}
   private readonly _destroyAll: ReplaySubject<unknown> =
     new ReplaySubject<unknown>();
   public readonly ButtonTypes = ButtonTypes;
@@ -21,6 +34,11 @@ export class CategoriesListComponent implements OnInit, OnDestroy {
     .select(selectCategoriesList)
     .pipe(
       filter((categories) => !!categories),
+      takeUntil(this._destroyAll)
+    );
+  public readonly categoryProductsList$: Observable<IGetProductsList[] | null> =
+    this._store.select(selectCategoryProductsList).pipe(
+      filter((products) => !!products),
       takeUntil(this._destroyAll)
     );
 
@@ -33,7 +51,15 @@ export class CategoriesListComponent implements OnInit, OnDestroy {
     this._destroyAll.complete();
   }
 
-  public categoryProducts() {
-
+  public categoryProducts(
+    categoryName: string,
+    content: TemplateRef<ElementRef>
+  ) {
+    this._store.dispatch(GetCategoryProducts({ categoryName: categoryName }));
+    this.dialog.open(content, {
+      height: '700px',
+      width: '100%',
+      enterAnimationDuration: 300,
+    });
   }
 }

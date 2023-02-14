@@ -16,6 +16,18 @@ export const CategoryReducer = createReducer(
       product: null,
     };
   }),
+  on(categoryActions.GetCategoryProductsSuccess, (state, { products }) => {
+    return {
+      ...state,
+      productsCategory: products,
+    };
+  }),
+  on(categoryActions.GetCategoryProductsFail, (state) => {
+    return {
+      ...state,
+      productsCategory: null,
+    };
+  }),
   on(categoryActions.GetCategoriesSuccess, (state, { categoryList }) => {
     return {
       ...state,
@@ -32,6 +44,7 @@ export const CategoryReducer = createReducer(
     return {
       categoryList: null,
       category: null,
+      productsCategory : null
     };
   })
 );
